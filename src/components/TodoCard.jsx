@@ -11,13 +11,28 @@ export default function TodoCard() {
   ]);
 
   const handleSubmit = () => {
+    const trimmedInput = todoInput.trim();
+
+    if (trimmedInput.length === 0) {
+      alert("Please enter a todo before adding.");
+      return;
+    }
+
+    const limitedInput = trimmedInput.slice(0, 5);
+
+    if (limitedInput !== trimmedInput) {
+      alert("Cannot exceed 5 characters!");
+      return;
+    }
+
     const newData = {
       id: todos.length + 1,
-      task: todoInput,
+      task: limitedInput,
       isDone: false,
     };
 
     setTodos([...todos, newData]);
+    setTodoInput(""); // Clear input after adding todo
   };
 
   const handleDelete = (id) => {
